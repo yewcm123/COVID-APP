@@ -1,18 +1,24 @@
 import React from "react";
 import { primeicons } from 'primeicons/primeicons.css'
+import { TbReportAnalytics, TbCompass } from "react-icons/tb";
 
 export const links = [
     {
-        title: 'Daily Covid Cases',
+        title: 'Charts',
         links: [
             {
-                name: 'DailyCovidCases',
-                icon: <i className="pi pi-bars"/>
+                name: 'Daily Covid Cases',
+                nav_link: 'DailyCovidCases',
+                icon: (<TbReportAnalytics/>)
             },
-        ],
+            {
+                name: 'Hotspot Location',
+                nav_link: 'HotspotLocation',
+                icon: (<TbCompass/>)
+            },        
+
+        ]
     },
+    
 
-    {
-
-    }
 ]
