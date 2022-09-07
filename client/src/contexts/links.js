@@ -1,8 +1,18 @@
 import React from "react";
 import { primeicons } from 'primeicons/primeicons.css'
-import { TbReportAnalytics, TbCompass } from "react-icons/tb";
+import { TbDashboard, TbReportAnalytics, TbCompass } from "react-icons/tb";
 
 export const links = [
+    {
+        title: 'Main Page',
+        links: [
+            {
+                name: 'Overview',
+                nav_link: 'Overview',
+                icon: (<TbDashboard/>)
+            },      
+        ]
+    },
     {
         title: 'Charts',
         links: [

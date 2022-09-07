@@ -10,8 +10,10 @@ import { useStateContext } from "../contexts/ContextProvider";
 const SideBar = () => {
     const { activeMenu, setActiveMenu } = useStateContext();
 
-    const activeLink = 'flex align-items-center gap-5 pl-4 pt-3 pb-2 m-2 border-round-lg border-yellow text-100 text-base';
-    const normalLink = 'flex align-items-center gap-5 pl-4 pt-3 pb-3 m-2 -round-lg text-gray-700 hover:bg-light-gray ';
+    const activeLink = 'border-round-2xl text-lg flex align-items-center gap-5 pl-4 pt-3 pb-2 m-2\
+        text-red-100 text-base bg-primary';
+    const normalLink = 'border-round-2xl text-lg flex align-items-center gap-5 pl-4 pt-3 pb-2 m-2\
+        hover:bg-gray-100 text-gray-700';
 
 
     return (
@@ -20,7 +22,7 @@ const SideBar = () => {
                 <>
                     <div>
                         <div className="flex block justify-content-between align-items-center" style={{width:'300px'} }>
-                            <Link to='/' onClick={()=>{}} className="flex text-gray-900 align-self-center gap-3 ml-1 mt-3 text-xl font-bold" style={{ textDecoration: 'none'}}>
+                            <Link to='/' onClick={()=>{}} className="flex text-gray-900 align-self-center gap-2 ml-1 mt-3 text-xl font-bold" style={{ textDecoration: 'none'}}>
                                 <TbCircles size={35} /> <span className="block pt-2" style={{letterSpacing:'-.025em'}}>COVID-19 Case Tracker</span>
                             </Link>           
                         </div>
@@ -34,15 +36,13 @@ const SideBar = () => {
                                     <NavLink
                                         to={`/${link.nav_link}`}
                                         key={link.name}
-                                        style={{ textDecoration: 'none'}}
-                                        className={`border-round-2xl text-lg hover:bg-gray-100 ${normalLink}`}     
+                                        style={{textDecoration:'none'}}
+                                        className={({ isActive }) => isActive ? activeLink : normalLink}     
                                     >
-                                        <i className={'text-2xl sidebar-item'} >
+                                        <i className={'text-2xl'} >
                                             {link.icon}
                                         </i>
-                                        <span className=" sidebar-item">
-                                            {link.name}
-                                        </span>
+                                        <span>{link.name}</span>
                                     </NavLink>
                                 ))}
                                     

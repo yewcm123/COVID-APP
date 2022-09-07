@@ -1,21 +1,41 @@
 const mysql = require('mysql');
 const octokit = require('octokit');
+let dbServiceInstance = null;
 
-const dbService = mysql.createConnection({
+const connection = mysql.createConnection({
     host : "localhost",
     user : "root",
     password : "",
-    database : "covid-app-db"
+    database : "covid_data",
+    port:'3306'
 });
 
-dbService.connect((err)=>{
+connection.connect((err)=>{
     if (err) throw err;
     console.log('Connected to database');
 })
 
-app.get('/getAll',(req, res )=>{
-    dbService.query('SELECT * FROM `cases_malaysia` WHERE 1', (err, result) => {
-        if (err) 
-    })
+class dbService{
+    static getDbServiceInstance(){
+        return dbServiceInstance ? dbServiceInstance : new dbService();
+    }
 
-})
+    async getAllData() {
+        try{
+            const respond = await new Promise((resolve,reject) => {
+                const query = 'SELECT `num`,`date`,`cases_new` FROM `cases_malaysia` WHERE 1';
+
+                connection.query(query,(err,results)=> {
+                    if(err) reject (new Error(err.message));
+                    resolve(results);
+                })            
+            });
+
+            return respond;
+        } catch(err) {
+            console.log(err);
+        }
+    }
+}
+
+module.exports = dbService;
