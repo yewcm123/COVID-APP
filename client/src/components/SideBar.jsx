@@ -17,7 +17,7 @@ const SideBar = () => {
 
 
     return (
-        <div className="pl-2 h-screen md:overflow-hidden sidebar overflow-auto md:hover:overflow-auto pb-10">
+        <div className="pl-2 h-screen md:overflow-hidden sidebar overflow-auto md:hover:overflow-auto pb-10" >
             {activeMenu && (
                 <>
                     <div>

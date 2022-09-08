@@ -13,11 +13,12 @@ import DailyCovidCases from './pages/DailyCovidCases';
 
 const App = () => {
     const { activeMenu } = useStateContext();
+
     return(
         <div className='flex relative '>
             <BrowserRouter>
             {activeMenu? (
-                <div className='w-18rem h-screen sidebar fixed bg-white'>
+                <div className='w-18rem h-full sidebar fixed bg-white'>
                     <SideBar/>
                 </div>
             ): (
@@ -25,7 +26,7 @@ const App = () => {
                     <SideBar/>
                 </div>
             )}
-            <div className={`w-full min-h-screen ${activeMenu ? 'ml-72' : 'flex-2'}`} >
+            <div className={`w-full h-full ${activeMenu ? 'ml-72' : 'flex-2'}`}>
                 <div className='fixed md:static navbar w-full'>
                     <NavBar/>
                 </div>

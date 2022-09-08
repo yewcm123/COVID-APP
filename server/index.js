@@ -17,14 +17,21 @@ app.listen(PORT,(err)=> {
     console.log(`Listening at port ${PORT}`);
 });
 
-app.get('/getAllData',( request , respond )=>{
+app.get('/getAllData',( request , response )=>{
     const db=dbService.getDbServiceInstance();
     const result=db.getAllData();
+    
     result
-    .then(data=>{
+    .then(data => response.json({data:data}))
+    // .then(data=> JSON.parse(JSON.stringify(data)))
+    // .then(json=> json.forEach((row)=> console.log(row['date'])))
         
-        respond.json({data:data})
-    })
+        // respond.json({
+        //     data:JSON.parse(data.num),
+            
+            
+        // })
+    
     .catch(err=>console.log(err));
     
 });

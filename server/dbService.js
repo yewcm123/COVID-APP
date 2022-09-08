@@ -25,13 +25,21 @@ class dbService{
             const respond = await new Promise((resolve,reject) => {
                 const query = 'SELECT `num`,`date`,`cases_new` FROM `cases_malaysia` WHERE 1';
 
-                connection.query(query,(err,results)=> {
-                    if(err) reject (new Error(err.message));
-                    resolve(results);
-                })            
+                connection.query(query,(err,rows)=> {
+                    if (err) reject (new Error(err.message));
+                    let data = JSON.parse(JSON.stringify(rows))
+                    let result = [];
+                    
+                    data.forEach( (data) => {
+                        let modDate = data.date
+                        data.date = modDate.slice(0,10);
+                    })
+                    resolve(data);
+                });
+                    
             });
-
             return respond;
+            
         } catch(err) {
             console.log(err);
         }

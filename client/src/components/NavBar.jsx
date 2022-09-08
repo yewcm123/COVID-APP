@@ -8,7 +8,7 @@ const NavButton = ({title, customFunc, icon}) =>(
     <button
         type='button'
         onClick={customFunc}
-        className="relative bg-white border-circle border-none text-xl p-2 hover:bg-light-gray cursor-pointer hover:shadow-3"
+        className="relative bg-white border-circle border-none text-xl p-3 hover:bg-gray-100 cursor-pointer hover:shadow-3"
     >
         {icon}
     </button>
