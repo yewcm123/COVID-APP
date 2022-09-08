@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const octokit = require('octokit');
+const moment = require('moment');
 let dbServiceInstance = null;
 
 const connection = mysql.createConnection({
@@ -28,16 +29,22 @@ class dbService{
                 connection.query(query,(err,rows)=> {
                     if (err) reject (new Error(err.message));
                     let data = JSON.parse(JSON.stringify(rows))
-                    let result = [];
+                    
+                    let dateArray = []
+                    let casesNewArray = []
                     
                     data.forEach( (data) => {
                         let modDate = data.date
-                        data.date = modDate.slice(0,10);
+                        modDate=moment(modDate).format('YYYY-MM-DD')
+                        dateArray.push(modDate);
+                        casesNewArray.push(data.cases_new);
                     })
-                    resolve(data);
+
+                    resolve({dateArray,casesNewArray});
                 });
                     
             });
+            console.log('refreshed!')
             return respond;
             
         } catch(err) {

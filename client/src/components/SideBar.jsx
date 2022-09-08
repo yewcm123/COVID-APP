@@ -11,7 +11,7 @@ const SideBar = () => {
     const { activeMenu, setActiveMenu } = useStateContext();
 
     const activeLink = 'border-round-2xl text-lg flex align-items-center gap-5 pl-4 pt-3 pb-2 m-2\
-        text-red-100 text-base bg-primary';
+        text-base bg-primary';
     const normalLink = 'border-round-2xl text-lg flex align-items-center gap-5 pl-4 pt-3 pb-2 m-2\
         hover:bg-gray-100 text-gray-700';
 

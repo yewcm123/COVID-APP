@@ -22,15 +22,15 @@ app.get('/getAllData',( request , response )=>{
     const result=db.getAllData();
     
     result
-    .then(data => response.json({data:data}))
+    .then(data => response.json(data))
     // .then(data=> JSON.parse(JSON.stringify(data)))
     // .then(json=> json.forEach((row)=> console.log(row['date'])))
         
-        // respond.json({
-        //     data:JSON.parse(data.num),
+    //     respond.json({
+    //         data:JSON.parse(data.num),
             
             
-        // })
+    //     })
     
     .catch(err=>console.log(err));
     

@@ -5,14 +5,15 @@ const StateContext = createContext();
 export const ContextProvider = ({ children }) => {
 
     const [ activeMenu, setActiveMenu ] = useState(true);
-    const [ data, setData ] = useState(null);
-
+    const [ date, setDate ] = useState(null);
+    const [ casesNew, setCasesNew ] = useState(null);
 
     return (
         <StateContext.Provider 
         value={{
             activeMenu, setActiveMenu,
-            data, setData
+            date, setDate,
+            casesNew, setCasesNew
 
         }}
         >            
