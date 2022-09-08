@@ -4,33 +4,18 @@ import { Chart } from 'primereact/chart';
 import DbService from '../../dbService';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-
 const LineChart = () => {
-    const { data, setData }=useStateContext();
 
-    setData( DbService())
+    const { date, casesNew }=useStateContext();
+    DbService();
 
     const [LineChartData] = useState({
-        labels: ['24', '25', '26', '27', '28', '29', '30'],
+        labels: date,
         datasets: [
             {
-                label: 'First Dataset',
-                data: [4, 0, 0, 0, 3, 1, 0],
-                fill: false,
-                borderColor: '#42A5F5',
-                tension: .4
-            },
-           
-        ]
-    });
-    
-    const [basicData] = useState({
-        labels: ['24', '25', '26', '27', '28', '29', '30'],
-        datasets: [
-            {
-                label: 'First Dataset',
-                data: [4, 0, 0, 0, 3, 1, 0],
-                fill: false,
+                label: 'New Cases',
+                data: casesNew,
+                fill: true,
                 borderColor: '#42A5F5',
                 tension: .4
             },
@@ -78,7 +63,7 @@ const LineChart = () => {
         <div>
             <div className="card pt-6">
                 <h5>Basic</h5>
-                <Chart type="line" data={basicData} options={basicOptions} />
+                <Chart type="line" data={LineChartData} options={basicOptions}  />
             </div>
         </div>
     )
