@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import DbService from '../../dbService';
 import { useStateContext } from '../../contexts/ContextProvider';
@@ -7,9 +7,8 @@ import { useStateContext } from '../../contexts/ContextProvider';
 const LineChart = () => {
 
     const { date, casesNew }=useStateContext();
-    DbService();
 
-    const [LineChartData] = useState({
+    const [ lineChartData, setLineChartData]=useState({
         labels: date,
         datasets: [
             {
@@ -21,7 +20,39 @@ const LineChart = () => {
             },
            
         ]
-    });
+    })
+
+    DbService();
+
+    useEffect (() => {
+        setLineChartData({
+            labels: date,
+        datasets: [
+            {
+                label: 'New Cases',
+                data: casesNew,
+                fill: true,
+                borderColor: '#42A5F5',
+                tension: .4
+            },    
+        ]
+
+        })
+    },[date,casesNew])
+
+    // const [LineChartData] = useState({
+    //     labels: date,
+    //     datasets: [
+    //         {
+    //             label: 'New Cases',
+    //             data: casesNew,
+    //             fill: true,
+    //             borderColor: '#42A5F5',
+    //             tension: .4
+    //         },
+           
+    //     ]
+    // });
 
     const getLightTheme = () => {
         let basicOptions = {
@@ -63,7 +94,7 @@ const LineChart = () => {
         <div>
             <div className="card pt-6">
                 <h5>Basic</h5>
-                <Chart type="line" data={LineChartData} options={basicOptions}  />
+                <Chart type="line" data={lineChartData} options={basicOptions}  />
             </div>
         </div>
     )

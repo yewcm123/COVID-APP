@@ -44,7 +44,7 @@ class dbService{
                 });
                     
             });
-            console.log('refreshed!')
+
             return respond;
             
         } catch(err) {
