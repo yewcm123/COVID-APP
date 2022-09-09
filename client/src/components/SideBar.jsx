@@ -28,7 +28,7 @@ const SideBar = () => {
                         </div>
                         <div className='mt-6' >
                             {links.map((item) => (
-                                <div key={item.title}>
+                                <div key={item.title} className='mb-4'>
                                     <div>
                                         <span className="p-3 m-3 mt-4 text-xl font-bold text-400 text-gray-800">{item.title}</span>
                                     </div>

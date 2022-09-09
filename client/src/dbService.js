@@ -14,10 +14,9 @@ const DbService = () => {
                 setDate(data.dateArray)
                 setCasesNew(data.casesNewArray)
             }) 
-    
+            
             .catch((err)=>console.log(err));
     }, [])
-    
     return;
 
 }

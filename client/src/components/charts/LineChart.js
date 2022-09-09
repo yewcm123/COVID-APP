@@ -9,11 +9,11 @@ const LineChart = () => {
     const { date, casesNew }=useStateContext();
 
     const [ lineChartData, setLineChartData]=useState({
-        labels: date,
+        labels: [],
         datasets: [
             {
                 label: 'New Cases',
-                data: casesNew,
+                data: [],
                 fill: true,
                 borderColor: '#42A5F5',
                 tension: .4
@@ -36,7 +36,7 @@ const LineChart = () => {
                 tension: .4
             },    
         ]
-
+        
         })
     },[date,casesNew])
 
