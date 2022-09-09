@@ -3,9 +3,10 @@ import { useStateContext } from './contexts/ContextProvider';
 
 
 const DbService = () => {
-    const { data, setData, date, setDate, casesNew, setCasesNew } = useStateContext();
+    const { setDate, setCasesNew } = useStateContext();
 
     useEffect(() => {
+        let data = []
         fetch('http://localhost:5000/getAllData')
             .then(result=> result.json())
             // .then(data=> JSON.parse(JSON.stringify(data)))
@@ -17,7 +18,7 @@ const DbService = () => {
             .catch((err)=>console.log(err));
     }, [])
     
-    return data;
+    return;
 
 }
 
