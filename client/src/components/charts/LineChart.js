@@ -8,19 +8,7 @@ const LineChart = () => {
 
     const { date, casesNew }=useStateContext();
 
-    const [ lineChartData, setLineChartData]=useState({
-        labels: [],
-        datasets: [
-            {
-                label: 'New Cases',
-                data: [],
-                fill: true,
-                borderColor: '#42A5F5',
-                tension: .4
-            },
-           
-        ]
-    })
+    const [ lineChartData, setLineChartData]=useState(null)
 
     DbService();
 
@@ -32,7 +20,7 @@ const LineChart = () => {
                 label: 'New Cases',
                 data: casesNew,
                 fill: true,
-                borderColor: '#42A5F5',
+                borderColor: getComputedStyle(document.body).getPropertyValue('--primary-color'),
                 tension: .4
             },    
         ]
