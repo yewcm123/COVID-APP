@@ -1,45 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Chart } from "primereact/chart";
 import ContentService from "../../ContentService";
-import { useStateContext } from "../../contexts/ContextProvider";
 
 const LineChart = () => {
-  const { date, casesNew } = useStateContext();
+  const chartRef = useRef();
+  const [date, setDate] = useState(null);
+  const [casesNew, setCasesNew] = useState(null);
 
   const [lineChartData, setLineChartData] = useState(null);
-
-  ContentService();
+  const contentService = new ContentService();
 
   useEffect(() => {
-    setLineChartData({
-      labels: date,
-      datasets: [
-        {
-          label: "New Cases",
-          data: casesNew,
-          fill: true,
-          borderColor: getComputedStyle(document.body).getPropertyValue(
-            "--primary-color"
-          ),
-          tension: 0.4,
-        },
-      ],
-    });
-  }, [date, casesNew]);
+    let isMounted = true;
+    if (isMounted) {
+      contentService.getAllData().then((res) => {
+        setDate(res.dateArray);
+        setCasesNew(res.casesNewArray);
 
-  // const [LineChartData] = useState({
-  //     labels: date,
-  //     datasets: [
-  //         {
-  //             label: 'New Cases',
-  //             data: casesNew,
-  //             fill: true,
-  //             borderColor: '#42A5F5',
-  //             tension: .4
-  //         },
+        setLineChartData({
+          labels: res.dateArray,
+          datasets: [
+            {
+              label: "New Cases",
+              data: res.casesNewArray,
+              fill: true,
+              borderColor: getComputedStyle(document.body).getPropertyValue(
+                "--primary-color"
+              ),
+              tension: 0.4,
+            },
+          ],
+        });
+        //chartRef.current.update();
+      });
+    }
 
-  //     ]
-  // });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const getLightTheme = () => {
     let basicOptions = {
@@ -80,8 +79,12 @@ const LineChart = () => {
   return (
     <div>
       <div className="card pt-6">
-        <h5>Basic</h5>
-        <Chart type="line" data={lineChartData} options={basicOptions} />
+        <Chart
+          type="line"
+          data={lineChartData}
+          ref={chartRef}
+          options={basicOptions}
+        />
       </div>
     </div>
   );
