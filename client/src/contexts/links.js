@@ -17,8 +17,8 @@ export const links = [
         title: 'Charts',
         links: [
             {
-                name: 'Daily Covid Cases',
-                nav_link: 'DailyCovidCases',
+                name: 'Covid Cases Chart',
+                nav_link: 'CovidCasesChart',
                 icon: (<TbReportAnalytics/>)
             },
             {

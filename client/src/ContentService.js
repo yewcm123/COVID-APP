@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useStateContext } from './contexts/ContextProvider';
 
 
-const DbService = () => {
+const ContentService = () => {
     const { setDate, setCasesNew } = useStateContext();
 
     useEffect(() => {
@@ -21,4 +21,4 @@ const DbService = () => {
 
 }
 
-export default DbService
+export default ContentService

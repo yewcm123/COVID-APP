@@ -4,7 +4,7 @@ const cors = require('cors');
 const mysql = require('mysql');
 const octokit = require('octokit');
 
-const dbService = require ('./dbService');
+const ContentService = require ('./ContentService');
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +18,7 @@ app.listen(PORT,(err)=> {
 });
 
 app.get('/getAllData',( request , response )=>{
-    const db=dbService.getDbServiceInstance();
+    const db=ContentService.getDbServiceInstance();
     const result=db.getAllData();
     
     result
