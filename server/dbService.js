@@ -16,16 +16,16 @@ connection.connect((err) => {
   console.log("Connected to database");
 });
 
-class ContentService {
+class dbService {
   static getDbServiceInstance() {
-    return dbServiceInstance ? dbServiceInstance : new ContentService();
+    return dbServiceInstance ? dbServiceInstance : new dbService();
   }
 
   async getAllData() {
     try {
       const respond = await new Promise((resolve, reject) => {
         const query =
-          "SELECT `num`,`date`,`cases_new` FROM `cases_malaysia` WHERE 1";
+          "SELECT `date`,`cases_new`,`cases_recovered` FROM `cases_malaysia`";
 
         connection.query(query, (err, rows) => {
           if (err) reject(new Error(err.message));
@@ -33,15 +33,17 @@ class ContentService {
 
           let dateArray = [];
           let casesNewArray = [];
+          let casesRecoveredArray = [];
 
           data.forEach((data) => {
             let modDate = data.date;
             modDate = moment(modDate).format("YYYY-MM-DD");
             dateArray.push(modDate);
             casesNewArray.push(data.cases_new);
+            casesRecoveredArray.push(data.cases_recovered);
           });
 
-          resolve({ dateArray, casesNewArray });
+          resolve({ dateArray, casesNewArray, casesRecoveredArray });
         });
       });
 
@@ -52,4 +54,4 @@ class ContentService {
   }
 }
 
-module.exports = ContentService;
+module.exports = dbService;

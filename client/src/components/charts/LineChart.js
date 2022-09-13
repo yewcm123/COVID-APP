@@ -6,6 +6,7 @@ const LineChart = () => {
   const chartRef = useRef();
   const [date, setDate] = useState(null);
   const [casesNew, setCasesNew] = useState(null);
+  const [casesRecovered, setCasesRecovered] = useState(null)
 
   const [lineChartData, setLineChartData] = useState(null);
   const contentService = new ContentService();
@@ -14,9 +15,6 @@ const LineChart = () => {
     let isMounted = true;
     if (isMounted) {
       contentService.getAllData().then((res) => {
-        setDate(res.dateArray);
-        setCasesNew(res.casesNewArray);
-
         setLineChartData({
           labels: res.dateArray,
           datasets: [
@@ -29,12 +27,18 @@ const LineChart = () => {
               ),
               tension: 0.4,
             },
+            {
+              label: "Recovered Cases",
+              data: res.casesRecoveredArray,
+              fill: true,
+              borderColor: '#44ab03',
+              tension: 0.4,
+            },
           ],
         });
-        //chartRef.current.update();
+        chartRef.current.update();
       });
     }
-
     return () => {
       isMounted = false;
     };
@@ -42,6 +46,7 @@ const LineChart = () => {
 
   const getLightTheme = () => {
     let basicOptions = {
+      stacked: false,
       maintainAspectRatio: false,
       aspectRatio: 0.6,
       plugins: {
@@ -61,10 +66,25 @@ const LineChart = () => {
           },
         },
         y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
           ticks: {
             color: "#495057",
           },
           grid: {
+            color: "#ebedef",
+          },
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          ticks: {
+            color: "#495057",
+          },
+          grid: {
+            drawOnChartArea: false,
             color: "#ebedef",
           },
         },
