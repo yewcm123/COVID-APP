@@ -6,10 +6,6 @@
     
 }
 
-.dispblock {
-    margin-right:0.75rem
-}
-
 .ml-72 {
     margin-left: 18rem;
 }
@@ -34,6 +30,18 @@
     .sidebar{
       z-index: 10000000;
     }
+}
+
+.overview-display-blocks {
+    border-radius: 1rem;
+    background-color: #ffffff;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    padding: 0.6rem;
+    width: 250px;
+    border-width: 3px;
+    border-color: red;
+
 }
 
 ::-webkit-scrollbar {

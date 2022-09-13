@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const octokit = require("octokit");
 const moment = require("moment");
+const axios = require("axios");
+const csvparser = require("csv-parser");
 let dbServiceInstance = null;
 
 const connection = mysql.createConnection({
@@ -23,19 +25,18 @@ class dbService {
 
   async getAllData() {
     try {
-      const respond = await new Promise((resolve, reject) => {
+      const response = await new Promise((resolve, reject) => {
         const query =
           "SELECT `date`,`cases_new`,`cases_recovered` FROM `cases_malaysia`";
 
         connection.query(query, (err, rows) => {
           if (err) reject(new Error(err.message));
-          let data = JSON.parse(JSON.stringify(rows));
 
           let dateArray = [];
           let casesNewArray = [];
           let casesRecoveredArray = [];
 
-          data.forEach((data) => {
+          rows.forEach((data) => {
             let modDate = data.date;
             modDate = moment(modDate).format("YYYY-MM-DD");
             dateArray.push(modDate);
@@ -47,10 +48,40 @@ class dbService {
         });
       });
 
-      return respond;
+      return response;
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async getTodayData() {
+    try {
+      const response = await new Promise((resolve, reject) => {
+        const query =
+          "SELECT `num`, `cases_new`, `cases_recovered` FROM `cases_malaysia` WHERE num=(SELECT max(num) FROM `cases_malaysia`)";
+        connection.query(query, (err, data) => {
+          if (err) reject(new Error(err.message));
+          let casesNew = data[0].cases_new;
+          let casesRecovered = data[0].cases_recovered;
+
+          resolve({ casesNew, casesRecovered });
+        });
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async getTodayDataGithub() {
+    return axios
+      .get(
+        "https://raw.githubusercontent.com/MoH-Malaysia/covid19-public/main/epidemic/deaths_malaysia.csv"
+      )
+      .pipe(csvparser.parse({ delimiter: ",", from_line: 2 }))
+      .on("data", function (row) {
+        console.log(row);
+      });
   }
 }
 

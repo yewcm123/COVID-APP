@@ -7,7 +7,7 @@ import SideBar from "./components/SideBar";
 import NavBar from "./components/NavBar";
 import Overview from "./pages/Overview";
 import HotspotLocation from "./pages/HotspotLocation";
-
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 import { useStateContext } from "./contexts/ContextProvider";
 import CovidCasesChart from "./pages/CovidCasesChart";
 
@@ -15,7 +15,7 @@ const App = () => {
   const { activeMenu } = useStateContext();
 
   return (
-    <div className="flex relative ">
+    <div className="flex relative bg-indigo-50 h-screen overflow-auto">
       <BrowserRouter>
         {activeMenu ? (
           <div className="w-18rem h-full sidebar fixed bg-white">

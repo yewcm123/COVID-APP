@@ -21,11 +21,19 @@ app.get("/getAllData", (request, response) => {
   const db = dbService.getDbServiceInstance();
   const result = db.getAllData();
 
-  result
-    .then((data) => response.json(data))
-    .catch((err) => console.log(err));
+  result.then((data) => response.json(data)).catch((err) => console.log(err));
 });
 
-app.get('/getTodayData',(request,response) => {
-    const db = dbService.getDbServiceInstance
-})
+app.get("/getTodayData", (request, response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getTodayData();
+
+  result.then((data) => response.json(data)).catch((err) => console.log(err));
+});
+
+app.get("/getTodayDataGithub", (request, response) => {
+  const db = dbService.getDbServiceInstance();
+  const result = db.getTodayDataGithub();
+
+  result.then((data) => response.json(data)).catch((err) => console.log(err));
+});
